@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: java-spring-lab
+server:
+  port: 18080
+  servlet:
+    context-path: /api/demo-services
