@@ -2,33 +2,34 @@ package com.example.java_spring_lab;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.resttestclient.TestRestTemplate;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestRestTemplate
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
+@AutoConfigureRestTestClient
 class JavaSpringLabApplicationTests {
 
-    @LocalServerPort
-    private int port;
-
     @Autowired
-    private TestRestTemplate restTemplate;
+    private RestTestClient restTestClient;
 
     @Test
-    void healthEndpointIsReachable() {
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                "http://localhost:" + port + "/api/demo-services/actuator/health",
-                String.class);
+    public void healthEndpointShouldReturnUp() {
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).contains("\"status\":\"UP\"");
+        restTestClient.get()
+            .uri("/actuator/health")
+            .exchange()
+            .expectStatus()
+                .isOk()
+            /*
+            .expectHeader()
+                .contentTypeCompatibleWith(APPLICATION_JSON)
+            */
+            .expectBody()
+                .jsonPath("$.status")
+                .isEqualTo("UP");
     }
-
 }

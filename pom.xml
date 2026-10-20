@@ -50,17 +50,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Client REST per i test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-resttestclient</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Client REST utilizzato da TestRestTemplate -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-restclient</artifactId>
         </dependency>
 
         <dependency>
