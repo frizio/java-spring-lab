@@ -11,10 +11,9 @@ public class RuntimeInfoService {
 
     public RuntimeInfo getRuntimeInfo() {
         return new RuntimeInfo(
-                System.getProperty("java.vm.version"),
                 System.getProperty("java.vm.vendor"),
+                System.getProperty("java.vm.version"),
                 SpringVersion.getVersion(),
-                SpringBootVersion.getVersion(),
-                System.getProperty("java.vendor"));
+                SpringBootVersion.getVersion());
     }
 }
