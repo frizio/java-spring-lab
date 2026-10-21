@@ -1,5 +1,7 @@
 # Copilot instructions for java-spring-lab
 
+When you are working on this repository, please follow these instructions to ensure that your contributions align with the project's conventions and architecture. Please always respond in Italiano.
+
 ## Project overview
 
 This repository is a minimal Spring Boot application built with Java 25 and Spring Boot 4.1.1. The app boots from `JavaSpringLabApplication`, exposes a small MVC API, and uses Actuator for health checks. The project is intentionally lightweight: there is no persistence layer, no multi-module build, and no custom lint or packaging pipeline beyond Maven.
