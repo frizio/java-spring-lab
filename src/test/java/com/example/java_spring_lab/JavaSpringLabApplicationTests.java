@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
+import org.springframework.core.SpringVersion;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
@@ -40,5 +42,25 @@ class JavaSpringLabApplicationTests {
                 .expectBody()
                 .jsonPath("$.status")
                 .isEqualTo("UP");
+    }
+
+    @Test
+    void runtimeInfoEndpointShouldReturnJvmAndSpringDetails() {
+        restTestClient.get()
+                .uri("/runtime-info")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody()
+                .jsonPath("$.jvmVersion")
+                .isEqualTo(System.getProperty("java.vm.version"))
+                .jsonPath("$.jvmVendor")
+                .isEqualTo(System.getProperty("java.vm.vendor"))
+                .jsonPath("$.springVersion")
+                .isEqualTo(SpringVersion.getVersion())
+                .jsonPath("$.springBootVersion")
+                .isEqualTo(SpringBootVersion.getVersion())
+                .jsonPath("$.vendor")
+                .isEqualTo(System.getProperty("java.vendor"));
     }
 }
