@@ -1,0 +1,28 @@
+
+[
+  {
+    "name": "Laptop",
+    "price": 300.99,
+    "promo": false
+  },
+  {
+    "name": "Notebook",
+    "price": 500.99,
+    "promo": true
+  },
+  {
+    "name": "Smartphone",
+    "price": 200.99,
+    "promo": true
+  },
+  {
+    "name": "Tablet",
+    "price": 600.99,
+    "promo": false
+  },
+  {
+    "name": "Netbook",
+    "price": 100.99,
+    "promo": false
+  }
+]
