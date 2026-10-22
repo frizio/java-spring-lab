@@ -1,6 +1,8 @@
 spring:
   application:
     name: java-spring-lab
+  mongodb:
+    uri: ${SPRING_MONGODB_URI:mongodb://app:app@localhost:27017/java-spring-lab?authSource=admin}
 logging:
   pattern:
     console: "%d{dd/MM/yyyy-HH:mm:ss} %logger:%line - %msg%n"

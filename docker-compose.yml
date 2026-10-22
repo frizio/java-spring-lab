@@ -4,8 +4,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      SPRING_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME:-app}:${MONGO_INITDB_ROOT_PASSWORD:-app}@mongodb:27017/java-spring-lab?authSource=admin
     ports:
       - "28080:18080"
+    depends_on:
+      mongodb:
+        condition: service_healthy
 
   rabbitmq:
     image: rabbitmq:4-management
@@ -23,6 +28,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-app}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-app}
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "127.0.0.1:27017:27017"
     volumes:

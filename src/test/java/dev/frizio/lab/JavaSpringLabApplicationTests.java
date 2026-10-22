@@ -10,7 +10,9 @@ import org.springframework.core.SpringVersion;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "management.health.mongodb.enabled=false")
 @AutoConfigureRestTestClient
 class JavaSpringLabApplicationTests {
 
