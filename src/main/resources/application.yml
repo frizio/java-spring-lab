@@ -1,6 +1,9 @@
 spring:
   application:
     name: java-spring-lab
+logging:
+  pattern:
+    console: "%d{dd/MM/yyyy-HH:mm:ss} %logger:%line - %msg%n"
 server:
   port: 18080
   servlet:
