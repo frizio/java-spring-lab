@@ -1,0 +1,9 @@
+services:
+  java-spring-lab:
+    image: frizio/java-spring-lab:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "28080:18080"
+
