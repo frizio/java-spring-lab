@@ -10,10 +10,11 @@ import com.example.java_spring_lab.model.RuntimeInfo;
 public class RuntimeInfoService {
 
     public RuntimeInfo getRuntimeInfo() {
-        return new RuntimeInfo(
-                System.getProperty("java.vm.vendor"),
-                System.getProperty("java.vm.version"),
-                SpringVersion.getVersion(),
-                SpringBootVersion.getVersion());
+        return RuntimeInfo.builder()
+                .jvmVendor(System.getProperty("java.vm.vendor"))
+                .jvmVersion(System.getProperty("java.vm.version"))
+                .springVersion(SpringVersion.getVersion())
+                .springBootVersion(SpringBootVersion.getVersion())
+                .build();
     }
 }
