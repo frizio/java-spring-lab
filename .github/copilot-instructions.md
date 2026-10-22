@@ -7,12 +7,12 @@ When you are working on this repository, please follow these instructions to ens
 This repository is a minimal Spring Boot application built with Java 25 and Spring Boot 4.1.1. The app boots from `JavaSpringLabApplication`, exposes a small MVC API, and uses Actuator for health checks. The project is intentionally lightweight: there is no persistence layer, no multi-module build, and no custom lint or packaging pipeline beyond Maven.
 
 Key source layout:
-- `src/main/java/com/example/java_spring_lab/JavaSpringLabApplication.java` — app entry point and startup logging.
-- `src/main/java/com/example/java_spring_lab/controller/` — HTTP endpoints.
-- `src/main/java/com/example/java_spring_lab/service/` — business logic and runtime metadata assembly.
-- `src/main/java/com/example/java_spring_lab/model/` — DTO/response models.
+- `src/main/java/dev/frizio/lab/JavaSpringLabApplication.java` — app entry point and startup logging.
+- `src/main/java/dev/frizio/lab/controller/` — HTTP endpoints.
+- `src/main/java/dev/frizio/lab/service/` — business logic and runtime metadata assembly.
+- `src/main/java/dev/frizio/lab/model/` — DTO/response models.
 - `src/main/resources/application.yml` — app name, port, and servlet context path.
-- `src/test/java/com/example/java_spring_lab/JavaSpringLabApplicationTests.java` — end-to-end Spring Boot tests.
+- `src/test/java/dev/frizio/lab/JavaSpringLabApplicationTests.java` — end-to-end Spring Boot tests.
 
 ## Build, test, and validation
 
@@ -42,7 +42,7 @@ Keep changes aligned with this minimal layering: controller -> service -> model,
 
 ## Conventions specific to this repo
 
-- The project package name is `com.example.java_spring_lab` with an underscore in the package segment; do not rename it to `java-spring-lab`.
+- The project package name is `dev.frizio.lab`; the Maven artifact remains `java-spring-lab`.
 - The repository targets Java 25 (`<java.version>25</java.version>` in `pom.xml`), so Java 25 is the expected runtime for local development and tests.
 - Prefer constructor injection (`RuntimeInfoController` and `RuntimeInfoService` are both written that way) and keep fields `final` when appropriate.
 - Tests use `@SpringBootTest` with `RestTestClient` and validate HTTP behavior against the application's actual endpoints.

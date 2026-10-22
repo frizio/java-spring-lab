@@ -1,12 +1,12 @@
-package com.example.java_spring_lab.controller;
+package dev.frizio.lab.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.java_spring_lab.model.RuntimeInfo;
-import com.example.java_spring_lab.service.RuntimeInfoService;
+import dev.frizio.lab.model.RuntimeInfo;
+import dev.frizio.lab.service.RuntimeInfoService;
 
 @RestController
 public class RuntimeInfoController {

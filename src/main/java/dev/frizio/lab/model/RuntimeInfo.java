@@ -1,4 +1,4 @@
-package com.example.java_spring_lab.model;
+package dev.frizio.lab.model;
 
 import lombok.Builder;
 

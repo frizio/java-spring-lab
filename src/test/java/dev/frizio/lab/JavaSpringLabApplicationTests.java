@@ -1,4 +1,4 @@
-package com.example.java_spring_lab;
+package dev.frizio.lab;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,10 +1,10 @@
-package com.example.java_spring_lab.service;
+package dev.frizio.lab.service;
 
 import org.springframework.core.SpringVersion;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.stereotype.Service;
 
-import com.example.java_spring_lab.model.RuntimeInfo;
+import dev.frizio.lab.model.RuntimeInfo;
 
 @Service
 public class RuntimeInfoService {
