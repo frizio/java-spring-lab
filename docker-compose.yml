@@ -1,5 +1,6 @@
 services:
   java-spring-lab:
+    container_name: app-lab-1
     image: frizio/java-spring-lab:local
     build:
       context: .
@@ -13,6 +14,7 @@ services:
         condition: service_healthy
 
   rabbitmq:
+    container_name: componente-a-code-rabbitmq
     image: rabbitmq:4-management
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-app}
@@ -24,6 +26,7 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq
 
   mongodb:
+    container_name: database-nosql-mongodb
     image: mongo:8
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-app}
