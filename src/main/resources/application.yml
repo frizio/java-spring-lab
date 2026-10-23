@@ -9,4 +9,4 @@ logging:
 server:
   port: 18080
   servlet:
-    context-path: /api/demo-services
+    context-path: /api/labs
