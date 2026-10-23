@@ -1,6 +1,5 @@
 package dev.frizio.lab;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -8,11 +7,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.core.SpringVersion;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 import dev.frizio.lab.model.Product;
@@ -22,60 +19,13 @@ import dev.frizio.lab.service.ProductService;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = "management.health.mongodb.enabled=false")
 @AutoConfigureRestTestClient
-class JavaSpringLabApplicationTests {
+class ProductControllerTests {
 
     @Autowired
     private RestTestClient restTestClient;
 
     @MockitoBean
     private ProductService productService;
-
-    @Test
-    void shouldRunOnJava25() {
-        String javaVersion = System.getProperty("java.version");
-        System.out.println("Java version in uso: " + javaVersion);
-        assertTrue(
-                Runtime.version().feature() == 25,
-                "L'applicazione deve essere eseguita con Java 25, versione rilevata: "
-                        + javaVersion);
-    }
-
-    @Test
-    public void healthEndpointShouldReturnUp() {
-
-        restTestClient.get()
-                .uri("/actuator/health")
-                .exchange()
-                .expectStatus()
-                .isOk()
-                /*
-                 * .expectHeader()
-                 * .contentTypeCompatibleWith(APPLICATION_JSON)
-                 */
-                .expectBody()
-                .jsonPath("$.status")
-                .isEqualTo("UP");
-    }
-
-    @Test
-    void runtimeInfoEndpointShouldReturnJvmAndSpringDetails() {
-        restTestClient.get()
-                .uri("/runtime-info")
-                .exchange()
-                .expectStatus()
-                .isOk()
-                .expectBody()
-                .jsonPath("$.jvmVersion")
-                .isEqualTo(System.getProperty("java.vm.version"))
-                .jsonPath("$.jvmVendor")
-                .isEqualTo(System.getProperty("java.vm.vendor"))
-                .jsonPath("$.springVersion")
-                .isEqualTo(SpringVersion.getVersion())
-                .jsonPath("$.springBootVersion")
-                .isEqualTo(SpringBootVersion.getVersion())
-                .jsonPath("$.vendor")
-                .isEqualTo(System.getProperty("java.vendor"));
-    }
 
     @Test
     void productsEndpointShouldReturnProductList() {
