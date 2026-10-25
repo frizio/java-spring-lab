@@ -170,3 +170,6 @@ spec:
 # kubectl apply -f .\deployment.yml
 
 # kubectl delete -f .\deployment.yml
+
+# kubectl get service java-spring-lab
+# kubectl port-forward service/java-spring-lab 8080:80
