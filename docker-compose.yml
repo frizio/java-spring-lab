@@ -1,7 +1,7 @@
 services:
   java-spring-lab:
     container_name: app-lab-1
-    image: frizio/java-spring-lab:local
+    image: frizio.dev/java-spring-lab:local
     build:
       context: .
       dockerfile: Dockerfile
