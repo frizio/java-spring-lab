@@ -157,7 +157,7 @@ kind: Service
 metadata:
   name: java-spring-lab
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: java-spring-lab
   ports:
