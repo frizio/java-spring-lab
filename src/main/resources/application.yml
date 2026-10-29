@@ -3,6 +3,14 @@ spring:
     name: java-spring-lab
   mongodb:
     uri: ${SPRING_MONGODB_URI:mongodb://app:app@localhost:27017/java-spring-lab?authSource=admin}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/java_spring_lab}
+    username: ${SPRING_DATASOURCE_USERNAME:app}
+    password: ${SPRING_DATASOURCE_PASSWORD:app}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
 logging:
   pattern:
     console: "%d{dd/MM/yyyy-HH:mm:ss} %logger:%line - %msg%n"

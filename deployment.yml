@@ -8,6 +8,15 @@ stringData:
   password: app
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: java-spring-lab-postgres
+type: Opaque
+stringData:
+  username: app
+  password: app
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongodb-data
@@ -17,6 +26,95 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: java_spring_lab
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: java-spring-lab-postgres
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: java-spring-lab-postgres
+                  key: password
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -124,10 +222,22 @@ spec:
                   key: password
             - name: SPRING_MONGODB_URI
               value: mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@mongodb:27017/java-spring-lab?authSource=admin
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/java_spring_lab
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: java-spring-lab-postgres
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: java-spring-lab-postgres
+                  key: password
             - name: MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED
               value: "true"
             - name: MANAGEMENT_ENDPOINT_HEALTH_GROUPS_READINESS_INCLUDE
-              value: readinessState,mongo
+              value: readinessState,mongo,db
           startupProbe:
             httpGet:
               path: /api/lab-services/actuator/health/liveness

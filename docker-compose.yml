@@ -7,10 +7,15 @@ services:
       dockerfile: Dockerfile
     environment:
       SPRING_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME:-app}:${MONGO_INITDB_ROOT_PASSWORD:-app}@mongodb:27017/java-spring-lab?authSource=admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-java_spring_lab}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-app}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-app}
     ports:
       - "28080:18080"
     depends_on:
       mongodb:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
 
   rabbitmq:
@@ -41,6 +46,24 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  postgres:
+    container_name: database-relazionale-postgresql
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-java_spring_lab}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   mongodb_data:
   rabbitmq_data:
+  postgres_data:
