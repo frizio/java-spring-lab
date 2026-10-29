@@ -1,4 +1,4 @@
-package dev.frizio.lab.model;
+package dev.frizio.lab.dto;
 
 import lombok.Builder;
 

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import dev.frizio.lab.model.BookDto;
-import dev.frizio.lab.model.BookRequestDto;
+import dev.frizio.lab.dto.BookDto;
+import dev.frizio.lab.dto.BookRequestDto;
 import dev.frizio.lab.service.BookService;
 import jakarta.validation.Valid;
 

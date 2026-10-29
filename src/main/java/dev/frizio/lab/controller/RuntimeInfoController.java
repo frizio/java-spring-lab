@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.frizio.lab.model.RuntimeInfo;
+import dev.frizio.lab.dto.RuntimeInfo;
 import dev.frizio.lab.service.RuntimeInfoService;
 
 @RestController

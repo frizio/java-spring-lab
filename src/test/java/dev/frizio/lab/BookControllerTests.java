@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
-import dev.frizio.lab.model.BookDto;
-import dev.frizio.lab.model.BookRequestDto;
+import dev.frizio.lab.dto.BookDto;
+import dev.frizio.lab.dto.BookRequestDto;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,

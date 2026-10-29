@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import dev.frizio.lab.dto.ProductDto;
 import dev.frizio.lab.model.Product;
 import dev.frizio.lab.repository.ProductRepository;
 
@@ -18,14 +19,20 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDto> getAllProducts() {
+        return productRepository.findAll().stream()
+                .map(this::toDto)
+                .toList();
     }
 
-    public Optional<Product> getProductById(String id) {
+    public Optional<ProductDto> getProductById(String id) {
         if (!ObjectId.isValid(id)) {
             return Optional.empty();
         }
-        return productRepository.findById(id);
+        return productRepository.findById(id).map(this::toDto);
+    }
+
+    private ProductDto toDto(Product product) {
+        return new ProductDto(product.id(), product.name(), product.price(), product.promo());
     }
 }

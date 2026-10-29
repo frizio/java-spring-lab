@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import dev.frizio.lab.dto.BookDto;
+import dev.frizio.lab.dto.BookRequestDto;
 import dev.frizio.lab.model.Book;
-import dev.frizio.lab.model.BookDto;
-import dev.frizio.lab.model.BookRequestDto;
 import dev.frizio.lab.repository.BookRepository;
 
 @Service

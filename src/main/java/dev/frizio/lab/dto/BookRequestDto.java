@@ -1,4 +1,4 @@
-package dev.frizio.lab.model;
+package dev.frizio.lab.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

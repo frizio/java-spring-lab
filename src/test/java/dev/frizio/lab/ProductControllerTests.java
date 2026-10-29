@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
-import dev.frizio.lab.model.Product;
+import dev.frizio.lab.dto.ProductDto;
 import dev.frizio.lab.service.ProductService;
 
 @SpringBootTest(
@@ -30,7 +30,7 @@ class ProductControllerTests {
     @Test
     void productsEndpointShouldReturnProductList() {
         when(productService.getAllProducts())
-                .thenReturn(List.of(new Product("507f1f77bcf86cd799439011", "Widget", 12.5, true)));
+                .thenReturn(List.of(new ProductDto("507f1f77bcf86cd799439011", "Widget", 12.5, true)));
 
         restTestClient.get()
                 .uri("/products")
@@ -51,7 +51,7 @@ class ProductControllerTests {
     @Test
     void productEndpointShouldReturnProductById() {
         when(productService.getProductById("507f1f77bcf86cd799439011"))
-                .thenReturn(Optional.of(new Product("507f1f77bcf86cd799439011", "Widget", 12.5, true)));
+                .thenReturn(Optional.of(new ProductDto("507f1f77bcf86cd799439011", "Widget", 12.5, true)));
 
         restTestClient.get()
                 .uri("/products/507f1f77bcf86cd799439011")

@@ -4,7 +4,7 @@ import org.springframework.core.SpringVersion;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.stereotype.Service;
 
-import dev.frizio.lab.model.RuntimeInfo;
+import dev.frizio.lab.dto.RuntimeInfo;
 
 @Service
 public class RuntimeInfoService {
